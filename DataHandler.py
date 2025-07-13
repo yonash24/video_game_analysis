@@ -158,4 +158,35 @@ class Data:
         count = len(console)
         return count
     
+    #remove duplicate rows
+    @staticmethod
+    def remove_dup(dataset:pd.DataFrame):
+        new_dataset = dataset.drop_duplicates()
+        return new_dataset
     
+    #Ensure columns are stored in the correct format
+    @staticmethod
+    def correct_foramat(dataset:pd.DataFrame):
+        dataset['title'] = dataset['title'].astype(str)
+        dataset['console'] = dataset['console'].astype(str)
+        dataset['genre'] = dataset['genre'].astype(str)
+        dataset['publisher'] = dataset['publisher'].astype(str)
+        dataset['developer'] = dataset['developer'].astype(str)
+        dataset['critic_score'] = pd.to_numeric(dataset['critic_score'], errors='coerce')
+        dataset['total_sales'] = pd.to_numeric(dataset['total_sales'], errors='coerce')
+        dataset['na_sales'] = pd.to_numeric(dataset['na_sales'], errors='coerce')
+        dataset['jp_sales'] = pd.to_numeric(dataset['jp_sales'], errors='coerce')
+        dataset['pal_sales'] = pd.to_numeric(dataset['pal_sales'], errors='coerce')
+        dataset['other_sales'] = pd.to_numeric(dataset['other_sales'], errors='coerce')
+        dataset['release_date'] = pd.to_datetime(dataset['release_date'], errors='coerce')
+        dataset['last_update'] = pd.to_datetime(dataset['last_update'], errors='coerce')
+        
+        
+    
+    #Make sure similar data entries are identical
+    def normalaiz_text(dataset:pd.DataFrame):
+        for item in ["title","console","genre","publisher","developer"]:
+            dataset[item] = dataset[item].str.upper()
+            dataset[item] = dataset[item].str.strip()
+            
+            
