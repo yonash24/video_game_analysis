@@ -103,7 +103,7 @@ class Data:
         return sum
     
     
-    #how many a games certain company published on a certain year
+    #how many games certain company published on a certain year
     @staticmethod
     def sold_in_year(year,company,dataset:pd.DataFrame):
         company_data = dataset[dataset['publisher'] == company]
@@ -184,9 +184,16 @@ class Data:
         
     
     #Make sure similar data entries are identical
+    @staticmethod
     def normalaiz_text(dataset:pd.DataFrame):
         for item in ["title","console","genre","publisher","developer"]:
             dataset[item] = dataset[item].str.upper()
             dataset[item] = dataset[item].str.strip()
             
-            
+    
+    #return every year how many games released
+    @staticmethod
+    def release_in_year(dataset:pd.DataFrame):
+        dataset['release_year'] = pd.to_datetime(dataset['release_date'], errors='coerce').dt.year
+        released_by_year = dataset['release_year'].value_counts()
+        return released_by_year
