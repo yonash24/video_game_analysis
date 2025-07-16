@@ -197,3 +197,14 @@ class Data:
         dataset['release_year'] = pd.to_datetime(dataset['release_date'], errors='coerce').dt.year
         released_by_year = dataset['release_year'].value_counts()
         return released_by_year
+
+    #return the n top publishers with the highest total sales
+    @staticmethod
+    def get_top_publisher_salse(n, dataset:pd.DataFrame):
+        grouped_data = dataset.groupby("publisher")["total_sales"].sum()
+        sorted_data = grouped_data.sort_values(ascending=False)
+        top_n = sorted_data.head(n)
+        return top_n
+    
+    
+    

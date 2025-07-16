@@ -9,15 +9,15 @@ df = pd.DataFrame(data)
 
 # 2. Use Matplotlib's plot function directly with DataFrame columns
 plt.figure(figsize=(10, 6)) # Optional: set figure size
-plt.plot(df['Year'], df['Global_Sales_Millions'], label='Global Sales', marker='o',color='lightgreen')
-plt.plot(df['Year'], df['NA_Sales_Millions'], label='NA Sales', marker='x', linestyle='--')
+plt.scatter(df['Year'], df['Global_Sales_Millions'], label='Global Sales')
+plt.scatter(df['Year'], df['NA_Sales_Millions'], label='NA Sales', marker='x')
 
 # 3. Add labels, title, and legend for clarity
 plt.xlabel('Release Year')
 plt.ylabel('Sales (Millions)')
 plt.title('Video Game Sales Trends')
 plt.legend() # Displays the labels for each line
-plt.grid(True) # Adds a grid for easier reading
+plt.grid(axis='y') # Adds a grid for easier reading
 
 # 4. Display the plot
 plt.show()
