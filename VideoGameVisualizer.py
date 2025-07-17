@@ -57,34 +57,80 @@ class visualize:
         plt.show()
 
         
+    #See how average critic scores have changed over time.
+    #insert a series output fron avg_critic_score_per_time in Data
+    @staticmethod
+    def avg_score_over_time(series:pd.Series):
+        plt.figure(figsize=(10.6))
+        plt.plot(series.index, series.values, label="yearly critic score")
+        plt.xlabel("year")
+        plt.ylabel("avg critic score")
+        plt.title("average critic score per year")
+        plt.legend()
+        plt.grid()
+        plt.show()
+        
+        
+    #Show the proportion of games belonging to the most popular n genres 
+    #get the number of top genres you want and series from count_by_genre from Data
+    @staticmethod
+    def games_by_genre(n, series:pd.Series):
+        new_series = series.head(n)
+        plt.figure(figsize=(10,6))
+        plt.pie(new_series.values,
+                labels=new_series.index,
+                autopct='%1.1f%%',
+                startangle=90)
+        plt.title("top n games by genre")
+        plt.show()   
+        
+        
     
+    #Compare how sales in different regions (e.g., NA, EU, JP) have evolved over time on a single graph
+    #get dataset from add_year
+    @staticmethod
+    def regionals_sales_trend(na_series:pd.Series, jp_series:pd.Series, pal_series:pd.Series):
+        plt.figure(figsize=(10,6))
+        plt.plot(na_series.index, na_series.values,label="na_sales", marker='o')
+        plt.plot(jp_series.index, jp_series.values,label="jp_sales", marker='o')
+        plt.plot(pal_series.index, pal_series.values,label="pal_sales", marker='o')
+        plt.xlabel("year")
+        plt.ylabel("region")
+        plt.title("region sales")
+        plt.legend()
+        plt.grid(True)
+        plt.show()
         
         
+    #Compare the average critic scores of games across different gaming platforms
+    #get series from avg_critic_by_platform from data
+    @staticmethod
+    def avg_critic_score_by_platform(series:pd.Series):
+        plt.figure(figsize=(10,6))
+        plt.bar(series.index, series.values)
+        plt.xlabel("platform")
+        plt.xticks(rotation=45, ha="right")
+        plt.ylabel("avg critic score")
+        plt.title("average critic score by platform")
+        plt.grid(axis='y')
+        plt.show()        
         
         
+    #Track and compare the sales performance of a few chosen publishers
+    #get series from sales_by_chosen_publishers from Data
+    @staticmethod
+    def publisher_sales_trend(series:pd.Series):
+        plt.figure(figsize=(10,6))
+        plt.bar(series.index, series.values, label="sales")
+        plt.xlabel("publisher")
+        plt.xticks(rotation=45, ha="right")
+        plt.ylabel("sales")
+        plt.title("chosen publisher sailes")
+        plt.grid(axis='y')
+        plt.show()
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+    
         
         
         

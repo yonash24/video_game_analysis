@@ -1,23 +1,28 @@
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 
-# 1. Create a sample DataFrame (or use your loaded video game data)
-data = {'Year': [2000, 2005, 2010, 2015, 2020],
-        'Global_Sales_Millions': [50, 75, 90, 80, 110],
-        'NA_Sales_Millions': [20, 30, 35, 30, 45]}
-df = pd.DataFrame(data)
+# Sample data (e.g., from your Data.avg_critic_by_platform function)
+platforms = ['PC', 'PlayStation 5 (PS5)', 'Xbox Series X/S', 'Nintendo Switch', 'Mobile']
+avg_scores = [85.5, 90.1, 88.2, 80.5, 65.3]
 
-# 2. Use Matplotlib's plot function directly with DataFrame columns
-plt.figure(figsize=(10, 6)) # Optional: set figure size
-plt.scatter(df['Year'], df['Global_Sales_Millions'], label='Global Sales')
-plt.scatter(df['Year'], df['NA_Sales_Millions'], label='NA Sales', marker='x')
+# Create a Series to simulate the output of avg_critic_by_platform
+# The index will be the platforms, and values will be the scores
+platform_scores = pd.Series(avg_scores, index=platforms)
 
-# 3. Add labels, title, and legend for clarity
-plt.xlabel('Release Year')
-plt.ylabel('Sales (Millions)')
-plt.title('Video Game Sales Trends')
-plt.legend() # Displays the labels for each line
-plt.grid(axis='y') # Adds a grid for easier reading
+plt.figure(figsize=(10, 6))
 
-# 4. Display the plot
+# Plotting a bar chart
+plt.bar(platform_scores.index, platform_scores.values, color='skyblue')
+
+plt.xlabel("Platform")
+plt.ylabel("Average Critic Score")
+plt.title("Average Critic Score by Platform")
+
+# --- Example of plt.xticks() ---
+# Rotate x-axis labels by 45 degrees for better readability
+plt.xticks(rotation=45, ha='right') # 'ha' stands for horizontal alignment
+
+plt.grid(axis='y', linestyle='--', alpha=0.7) # Optional: add horizontal grid
+plt.tight_layout() # Adjusts plot parameters for a tight layout
 plt.show()

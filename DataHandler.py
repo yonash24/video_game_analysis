@@ -207,4 +207,45 @@ class Data:
         return top_n
     
     
+    #get average critic score by time
+    @staticmethod
+    def avg_critic_score_per_year(dataset:pd.DataFrame):
+        dataset['year'] = pd.to_datetime(dataset['release_date'], errors='coerce').dt.year
+        score_by_year = dataset.groupby("year")["critic_score"].mean()
+        return score_by_year
     
+    
+    #return series of sells in NA by years
+    @staticmethod
+    def na_sales_by_year(dataset:pd.DataFrame):
+        dataset['year'] = pd.to_datetime(dataset['release_date'], errors='coerce').dt.year
+        region_sales = dataset.groupby("year")["na_sales"].sum()
+        return region_sales
+    
+    #return series of sells in JP by years
+    @staticmethod
+    def jp_sales_by_year(dataset:pd.DataFrame):
+        dataset['year'] = pd.to_datetime(dataset['release_date'], errors='coerce').dt.year
+        region_sales = dataset.groupby("year")["jp_sales"].sum()
+        return region_sales
+    
+    #return series of sells in PAL by years
+    @staticmethod
+    def pal_sales_by_year(dataset:pd.DataFrame):
+        dataset['year'] = pd.to_datetime(dataset['release_date'], errors='coerce').dt.year
+        region_sales = dataset.groupby("year")["pal_sales"].sum()
+        return region_sales
+    
+    #return the avg of critic score by platform
+    def avg_critic_by_platform(dataset:pd.DataFrame):
+        critic_avg = dataset.groupby("platform")["critic_score"].mean()
+        return critic_avg
+    
+    
+    #return series of sales preformance of a few chosem publishersd
+    @staticmethod
+    def sales_by_chosen_publishers(publishers,dataset:pd.DataFrame):
+        grouped_data = dataset.groupby("publisher")["total_sales"].sum()
+        update_data = grouped_data.index.isin(publishers)
+        sales_by_publishers = grouped_data[update_data]
+        return sales_by_publishers
