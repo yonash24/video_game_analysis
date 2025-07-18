@@ -116,7 +116,7 @@ class visualize:
         plt.show()        
         
         
-    #Track and compare the sales performance of a few chosen publishers
+    #show the sales of a few chosen publishers
     #get series from sales_by_chosen_publishers from Data
     @staticmethod
     def publisher_sales_trend(series:pd.Series):
@@ -126,21 +126,44 @@ class visualize:
         plt.xticks(rotation=45, ha="right")
         plt.ylabel("sales")
         plt.title("chosen publisher sailes")
+        plt.legend()
         plt.grid(axis='y')
         plt.show()
         
         
+    #Identify which developers have released the most games
+    #get series from top_games_developers from Data
+    @staticmethod
+    def top_developers_by_game_count(series: pd.Series):
+        plt.figure(figsize=(10,6))
+        plt.bar(series.index, series.values)
+        plt.xlabel("developers")
+        plt.xticks(rotation=45, ha="right")
+        plt.ylabel("amount of games")
+        plt.title("amount of games by developers")
+        plt.grid(axis='y')
+        plt.show()
+        
+    # displays the frequency distribution of critic scores using a histogram
+    def plot_critic_score_distribution(dataset: pd.DataFrame, score_column: str = 'critic_score'):
+        if score_column not in dataset.columns:
+            print(f"Error: '{score_column}' column not found in the dataset.")
+            return
+        scores = pd.to_numeric(dataset[score_column], errors='coerce').dropna()
+        if scores.empty:
+            print(f"No valid data found in '{score_column}' to plot distribution.")
+            return
+        
+        plt.figure(figsize=(10, 6))
+        plt.hist(scores, bins='auto', color='lightcoral', edgecolor='black')
+        plt.xlabel('Critic Score')
+        plt.ylabel('Frequency of Games')
+        plt.title(f'Distribution of {score_column.replace("_", " ").title()}s')
+        plt.grid(axis='y')
+        plt.tight_layout()
+        plt.show()
+        
     
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         
         

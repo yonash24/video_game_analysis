@@ -249,3 +249,13 @@ class Data:
         update_data = grouped_data.index.isin(publishers)
         sales_by_publishers = grouped_data[update_data]
         return sales_by_publishers
+    
+    #return series of the top n developers that released the most games
+    def top_games_developers(n, dataset: pd.DataFrame):
+        grouped_data = dataset.groupby("developer").size()
+        sorted_data = grouped_data.sort_values(ascending=False)
+        top_n_developers = sorted_data.head(n)
+        return top_n_developers
+    
+    
+    
